@@ -19,6 +19,42 @@
 .product[hidden]{display:none!important}
 .size-label{display:block;margin:10px 0 5px;color:#766367;font-size:12px}.size-select{width:100%;padding:10px 12px;border:1px solid #e4cbd0;border-radius:12px;background:#fffafa;color:#65434c;font:inherit;font-size:13px;margin-bottom:8px}
 .filter{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+/* Painel administrativo — adicionado sem alterar o catálogo público */
+.admin-entry{display:inline-block;margin-top:10px;color:#b18a54;font-size:11px;text-decoration:underline;cursor:pointer}
+.admin-overlay{position:fixed;inset:0;background:rgba(35,22,26,.72);z-index:10001;display:none;align-items:center;justify-content:center;padding:18px;overflow:auto}
+.admin-overlay.open{display:flex}
+.admin-panel{width:min(980px,100%);max-height:94vh;overflow:auto;background:#fffaf8;border-radius:20px;padding:22px;box-shadow:0 24px 80px #0004;color:#382b2e}
+.admin-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.admin-head h2{margin:0;font-size:24px;color:#7d4d58}
+.admin-close{border:0;background:#f5dfe2;color:#7d4d58;border-radius:50%;width:38px;height:38px;font-size:24px;cursor:pointer}
+.admin-login{max-width:420px;margin:12px auto;padding:12px}
+.admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 20px}
+.admin-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#765f63}
+.admin-field.full{grid-column:1/-1}
+.admin-field input,.admin-field textarea,.admin-field select{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #e4cbd0;border-radius:10px;background:#fff;color:#382b2e;font:inherit;font-size:14px}
+.admin-field textarea{min-height:74px;resize:vertical}
+.admin-image-preview{display:none;align-items:center;gap:12px;margin-top:8px;padding:8px;border:1px solid #ead5d9;border-radius:10px;background:#fff}
+.admin-image-preview.visible{display:flex}
+.admin-image-preview img{width:76px;height:76px;object-fit:contain;border-radius:8px;background:#fff7f8}
+.admin-image-preview span{font-size:12px;color:#765f63}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.admin-btn{border:0;border-radius:10px;padding:11px 15px;background:#7d4d58;color:#fff;font-weight:600;cursor:pointer}
+.admin-btn.secondary{background:#ead6d9;color:#65434c}
+.admin-btn.danger{background:#9d4545}
+.admin-status{padding:10px 12px;border-radius:10px;background:#f5e9e7;color:#65434c;font-size:13px;margin:10px 0}
+.admin-status.error{background:#fbe5e5;color:#8a2929}
+.admin-table-wrap{overflow:auto;border:1px solid #ead6d9;border-radius:12px;background:#fff}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+.admin-table th,.admin-table td{padding:10px;border-bottom:1px solid #f0e5e5;text-align:left}
+.admin-table th{background:#f8edef;color:#76545b}
+.admin-product-actions{display:flex;gap:6px}
+.admin-product-actions button{border:0;border-radius:8px;padding:7px 9px;cursor:pointer;background:#f2e4e6;color:#65434c}
+.admin-product-actions .delete{background:#f8e1e1;color:#9d3030}
+.admin-section-title{font-size:17px;color:#7d4d58;margin:20px 0 8px}
+.admin-hidden{display:none!important}
+@media(max-width:650px){.admin-panel{padding:16px}.admin-form{grid-template-columns:1fr}.admin-field.full{grid-column:auto}.admin-head h2{font-size:20px}}
+
 </style>
 </head>
 <body>
@@ -65,7 +101,41 @@
 </div></div></section>
 <section class="section about" id="sobre"><div class="wrap about-grid"><div><div class="eyebrow">Um carinho em cada detalhe</div><h2>Sobre a Isabela Lash Store</h2><p style="color:#766367;line-height:1.8;font-size:14px">Um espaço dedicado a produtos e acessórios para realçar a beleza do olhar. Encontre itens para sua rotina profissional de cílios e sobrancelhas, com atendimento próximo e especial.</p></div><div class="about-card"><h3>Visite nossa loja</h3><p><strong>Endereço</strong><br>Avenida Rui Barbosa, Centro<br>Rondonópolis – MT</p><p><strong>Instagram</strong><br><a href="https://instagram.com/lashstore_isabela" target="_blank" rel="noopener">@lashstore_isabela ↗</a></p></div></div></section>
 <section class="contact" id="contato"><div class="wrap"><div class="eyebrow" style="color:#e6c79d">Estamos à disposição</div><h2>Vamos escolher seus favoritos?</h2><p>Fale com a Isabela Lash Store e consulte disponibilidade dos produtos.</p><a class="btn" href="https://wa.me/5566999822091?text=Olá!%20Vim%20pelo%20site%20da%20Isabela%20Lash%20Store." target="_blank" rel="noopener">Conversar pelo WhatsApp</a><a class="btn" href="https://instagram.com/lashstore_isabela" target="_blank" rel="noopener">Ver Instagram</a></div></section>
-</main><div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Foto ampliada"><button class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button><img id="lightboxImage" alt="Foto do produto ampliada"></div><footer class="footer"><div class="wrap">© 2026 Isabela Lash Store · Rondonópolis – MT<div class="fine">Preços e disponibilidade sujeitos a confirmação no atendimento.</div></div></footer>
+</main>
+<div class="admin-overlay" id="adminOverlay" aria-modal="true" role="dialog" aria-label="Painel administrativo">
+  <section class="admin-panel">
+    <div class="admin-head"><div><div class="eyebrow">ISABELA LASH STORE</div><h2>Painel administrativo</h2></div><button class="admin-close" id="adminClose" aria-label="Fechar">&times;</button></div>
+    <div id="adminLogin" class="admin-login">
+      <p>Entre com o e-mail e a senha do administrador.</p>
+      <form id="adminLoginForm" class="admin-form" style="grid-template-columns:1fr">
+        <label class="admin-field">E-mail<input id="adminEmail" type="email" autocomplete="username" required></label>
+        <label class="admin-field">Senha<input id="adminPassword" type="password" autocomplete="current-password" required></label>
+        <div class="admin-actions"><button class="admin-btn" type="submit">Entrar</button></div>
+      </form>
+    </div>
+    <div id="adminDashboard" class="admin-hidden">
+      <div class="admin-actions"><span id="adminWelcome" style="margin-right:auto;font-size:13px"></span><button class="admin-btn secondary" id="adminRefresh" type="button">Atualizar lista</button><button class="admin-btn secondary" id="adminLogout" type="button">Sair</button></div>
+      <div id="adminStatus" class="admin-status" role="status">Conectando ao Supabase…</div>
+      <h3 class="admin-section-title" id="adminFormTitle">Cadastrar produto</h3>
+      <form id="adminProductForm" class="admin-form">
+        <input type="hidden" id="adminProductId">
+        <label class="admin-field">Nome do produto<input id="adminProductName" maxlength="140" required></label>
+        <label class="admin-field">Categoria<select id="adminProductCategory" required><option value="">Carregando categorias…</option></select></label>
+        <label class="admin-field">Preço (R$)<input id="adminProductPrice" type="number" min="0" step="0.01" required></label>
+        <label class="admin-field">Estoque<input id="adminProductStock" type="number" min="0" step="1" value="0" required></label>
+        <label class="admin-field full">Descrição<textarea id="adminProductDescription"></textarea></label>
+        <label class="admin-field">Foto do produto<input id="adminProductImage" type="file" accept="image/jpeg,image/png,image/webp"><small>JPEG, PNG ou WebP. Até 5 MB. Se não escolher outra foto, a imagem atual será mantida.</small><div class="admin-image-preview" id="adminImagePreview"><img id="adminImagePreviewImg" alt="Foto atual do produto"><span id="adminImagePreviewText">Foto atual do produto</span></div></label>
+        <label class="admin-field">Ordem de exibição<input id="adminProductOrder" type="number" step="1" value="0"></label>
+        <label class="admin-field"><span>Produto ativo</span><select id="adminProductActive"><option value="true">Sim</option><option value="false">Não</option></select></label>
+        <div class="admin-field full admin-actions"><button class="admin-btn" type="submit" id="adminSaveProduct">Salvar produto</button><button class="admin-btn secondary" type="button" id="adminCancelEdit">Limpar formulário</button></div>
+      </form>
+      <h3 class="admin-section-title">Produtos cadastrados no Supabase</h3>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Produto</th><th>Preço</th><th>Estoque</th><th>Status</th><th>Ações</th></tr></thead><tbody id="adminProductsBody"><tr><td colspan="5">Carregando…</td></tr></tbody></table></div>
+    </div>
+  </section>
+</div>
+
+<div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Foto ampliada"><button class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button><img id="lightboxImage" alt="Foto do produto ampliada"></div><footer class="footer"><div class="wrap">© 2026 Isabela Lash Store · Rondonópolis – MT<br><a class="admin-entry" href="#admin" id="openAdminPanel">Acesso administrativo</a><div class="fine">Preços e disponibilidade sujeitos a confirmação no atendimento.</div></div></footer>
 <script>
 (() => {
   const cards = Array.from(document.querySelectorAll('#products .product'));
@@ -122,8 +192,8 @@
   document.querySelectorAll('.fadvan-product').forEach(card => {
     const select = card.querySelector('.size-select');
     const link = card.querySelector('.buy');
-    const product = link.dataset.product;
     const updateLink = () => {
+      const product = link.dataset.product || card.querySelector('h3')?.textContent || 'produto';
       const message = `Olá! Tenho interesse no ${product}, tamanho ${select.value}.`;
       link.href = 'https://wa.me/5566999822091?text=' + encodeURIComponent(message);
     };
@@ -166,4 +236,319 @@
   });
 })();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+  const SUPABASE_URL = 'https://adcfpjveelnnspgudldo.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_8bePJDfdpKi0tk68QZe4vA_DJh39neD';
+  const STORAGE_BUCKET = 'product-images';
+  const $ = id => document.getElementById(id);
+  const overlay = $('adminOverlay');
+  const loginBox = $('adminLogin');
+  const dashboard = $('adminDashboard');
+  let client = null;
+  let currentUser = null;
+  let categories = [];
+  let products = [];
+
+  function status(message, error=false) {
+    const el = $('adminStatus');
+    if (!el) return;
+    el.textContent = message;
+    el.classList.toggle('error', error);
+  }
+  function showOverlay() {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (!window.supabase || !window.supabase.createClient) {
+      loginBox.classList.remove('admin-hidden');
+      dashboard.classList.add('admin-hidden');
+      status('Não foi possível carregar a biblioteca do Supabase. Verifique sua conexão e atualize a página.', true);
+      return;
+    }
+    if (!client) client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    client.auth.getSession().then(({data}) => {
+      if (data && data.session) verifyAdmin(data.session.user);
+    });
+  }
+  function hideOverlay() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function setLoggedIn(value) {
+    loginBox.classList.toggle('admin-hidden', value);
+    dashboard.classList.toggle('admin-hidden', !value);
+  }
+  async function verifyAdmin(user) {
+    const {data, error} = await client.from('admin_users').select('user_id').eq('user_id', user.id).maybeSingle();
+    if (error || !data) {
+      await client.auth.signOut();
+      currentUser = null;
+      setLoggedIn(false);
+      status(error ? 'Não foi possível validar o administrador: ' + error.message : 'Este usuário não está cadastrado como administrador.', true);
+      return;
+    }
+    currentUser = user;
+    setLoggedIn(true);
+    $('adminWelcome').textContent = 'Conectado: ' + (user.email || 'administrador');
+    status('Acesso administrativo confirmado. Carregando categorias e produtos…');
+    await loadCategories();
+    await loadProducts();
+  }
+  async function login(event) {
+    event.preventDefault();
+    if (!client) client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    status('Validando acesso…');
+    const {data, error} = await client.auth.signInWithPassword({email:$('adminEmail').value.trim(), password:$('adminPassword').value});
+    if (error) { status('Não foi possível entrar: ' + error.message, true); return; }
+    $('adminPassword').value = '';
+    await verifyAdmin(data.user);
+  }
+  async function loadCategories() {
+    const {data, error} = await client.from('categories').select('id,name,is_active').order('name');
+    if (error) { status('Erro ao carregar categorias: ' + error.message, true); return; }
+    categories = data || [];
+    const select = $('adminProductCategory');
+    select.innerHTML = '<option value="">Selecione uma categoria</option>';
+    categories.filter(c => c.is_active !== false).forEach(c => {
+      const option = document.createElement('option');
+      option.value = c.id;
+      option.textContent = c.name;
+      select.appendChild(option);
+    });
+  }
+  async function loadProducts() {
+    const {data, error} = await client.from('products').select('*').order('sort_order', {ascending:true}).order('name');
+    if (error) { status('Erro ao carregar produtos: ' + error.message, true); return; }
+    products = data || [];
+    renderProducts();
+    window.dispatchEvent(new Event('lash:catalog-updated'));
+    status(products.length ? `${products.length} produto(s) encontrado(s) no banco de dados.` : 'Conexão funcionando. Ainda não há produtos cadastrados no banco. O catálogo público atual foi preservado.');
+  }
+  function money(value) {
+    return Number(value || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  }
+  function renderProducts() {
+    const body = $('adminProductsBody');
+    body.innerHTML = '';
+    if (!products.length) {
+      body.innerHTML = '<tr><td colspan="5">Nenhum produto cadastrado no banco ainda. O catálogo público continua sendo exibido pela versão atual do site.</td></tr>';
+      return;
+    }
+    products.forEach(product => {
+      const tr = document.createElement('tr');
+      const category = categories.find(c => String(c.id) === String(product.category_id));
+      const name = document.createElement('td'); name.textContent = product.name || 'Sem nome';
+      const price = document.createElement('td'); price.textContent = money(product.price);
+      const stock = document.createElement('td'); stock.textContent = String(product.stock ?? 0);
+      const active = document.createElement('td'); active.textContent = product.is_active ? 'Ativo' : 'Inativo';
+      const actions = document.createElement('td'); actions.className = 'admin-product-actions';
+      const edit = document.createElement('button'); edit.type='button'; edit.textContent='Editar'; edit.addEventListener('click',()=>editProduct(product));
+      const del = document.createElement('button'); del.type='button'; del.textContent='Excluir'; del.className='delete'; del.addEventListener('click',()=>deleteProduct(product));
+      actions.append(edit,del); tr.append(name,price,stock,active,actions); body.appendChild(tr);
+    });
+  }
+  let selectedPreviewObjectUrl = null;
+  function showImagePreview(url, label) {
+    const wrap = $('adminImagePreview');
+    const img = $('adminImagePreviewImg');
+    if (selectedPreviewObjectUrl) { URL.revokeObjectURL(selectedPreviewObjectUrl); selectedPreviewObjectUrl = null; }
+    if (!url) { wrap.classList.remove('visible'); img.removeAttribute('src'); $('adminImagePreviewText').textContent = ''; return; }
+    img.src = url; $('adminImagePreviewText').textContent = label || 'Foto atual do produto'; wrap.classList.add('visible');
+  }
+  function clearForm() {
+    $('adminProductForm').reset();
+    showImagePreview('', '');
+    $('adminProductId').value='';
+    $('adminProductStock').value='0';
+    $('adminProductOrder').value='0';
+    $('adminFormTitle').textContent='Cadastrar produto';
+    $('adminSaveProduct').textContent='Salvar produto';
+  }
+  function editProduct(product) {
+    $('adminProductId').value=product.id;
+    $('adminProductName').value=product.name || '';
+    $('adminProductCategory').value=product.category_id ?? '';
+    $('adminProductPrice').value=product.price ?? 0;
+    $('adminProductStock').value=product.stock ?? 0;
+    $('adminProductDescription').value=product.description || '';
+    $('adminProductOrder').value=product.sort_order ?? 0;
+    $('adminProductActive').value=String(product.is_active !== false);
+    showImagePreview(product.image_url || '', product.image_url ? 'Foto atual do produto. Escolha outro arquivo para substituir.' : 'Este produto ainda não tem foto.');
+    $('adminFormTitle').textContent='Editar produto';
+    $('adminSaveProduct').textContent='Salvar alterações';
+    $('adminProductForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  async function uploadImage(file) {
+    if (!file) return null;
+    if (file.size > 5*1024*1024) throw new Error('A imagem ultrapassa o limite de 5 MB.');
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type)) throw new Error('Formato inválido. Use JPEG, PNG ou WebP.');
+    const ext = file.type === 'image/jpeg' ? 'jpg' : file.type.split('/')[1];
+    const safeName = file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9.-]+/g,'-');
+    const path = `${Date.now()}-${safeName || 'produto.'+ext}`;
+    const {error} = await client.storage.from(STORAGE_BUCKET).upload(path,file,{upsert:false,contentType:file.type});
+    if (error) throw new Error('Falha ao enviar imagem ao Storage: ' + error.message);
+    const {data} = client.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+    return data.publicUrl;
+  }
+  async function saveProduct(event) {
+    event.preventDefault();
+    const id = $('adminProductId').value;
+    const payload = {
+      name:$('adminProductName').value.trim(),
+      category_id:Number($('adminProductCategory').value),
+      price:Number($('adminProductPrice').value),
+      stock:Number($('adminProductStock').value),
+      description:$('adminProductDescription').value.trim(),
+      sort_order:Number($('adminProductOrder').value || 0),
+      is_active:$('adminProductActive').value === 'true',
+      updated_at:new Date().toISOString()
+    };
+    if (!payload.name || !payload.category_id || !Number.isFinite(payload.price) || !Number.isFinite(payload.stock)) {
+      status('Preencha nome, categoria, preço e estoque corretamente.',true); return;
+    }
+    const file = $('adminProductImage').files[0];
+    try {
+      status(file ? 'Enviando imagem e salvando produto…' : 'Salvando produto…');
+      if (file) payload.image_url = await uploadImage(file);
+      let result;
+      if (id) result = await client.from('products').update(payload).eq('id',id);
+      else result = await client.from('products').insert(payload);
+      if (result.error) throw result.error;
+      clearForm();
+      await loadProducts();
+      status('Produto salvo com sucesso. A vitrine pública foi atualizada com os dados do Supabase.');
+    } catch (error) { status('Não foi possível salvar: ' + (error.message || String(error)),true); }
+  }
+  async function deleteProduct(product) {
+    if (!confirm(`Excluir o produto “${product.name}” do banco de dados?`)) return;
+    const {error} = await client.from('products').delete().eq('id',product.id);
+    if (error) { status('Erro ao excluir produto: ' + error.message,true); return; }
+    await loadProducts();
+    status('Produto excluído do banco de dados.');
+  }
+
+  $('openAdminPanel').addEventListener('click',event=>{event.preventDefault();showOverlay();});
+  $('adminClose').addEventListener('click',hideOverlay);
+  overlay.addEventListener('click',event=>{if(event.target===overlay)hideOverlay();});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&overlay.classList.contains('open'))hideOverlay();});
+  $('adminLoginForm').addEventListener('submit',login);
+  $('adminProductForm').addEventListener('submit',saveProduct);
+  $('adminProductImage').addEventListener('change', event => {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    if (selectedPreviewObjectUrl) URL.revokeObjectURL(selectedPreviewObjectUrl);
+    selectedPreviewObjectUrl = URL.createObjectURL(file);
+    $('adminImagePreviewImg').src = selectedPreviewObjectUrl;
+    $('adminImagePreviewText').textContent = 'Nova foto selecionada. Ela substituirá a foto atual ao salvar.';
+    $('adminImagePreview').classList.add('visible');
+  });
+  $('adminCancelEdit').addEventListener('click',clearForm);
+  $('adminRefresh').addEventListener('click',async()=>{await loadCategories();await loadProducts();});
+  $('adminLogout').addEventListener('click',async()=>{await client.auth.signOut();currentUser=null;setLoggedIn(false);clearForm();status('Você saiu do painel administrativo.');});
+})();
+</script>
+
+
+<script>
+/* ISABELA LASH STORE — vitrine pública conectada ao Supabase */
+(() => {
+  const SUPABASE_URL = 'https://adcfpjveelnnspgudldo.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_8bePJDfdpKi0tk68QZe4vA_DJh39neD';
+  const money = value => Number(value || 0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  let publicClient = null;
+  let loading = false;
+
+  async function loadPublicCatalog() {
+    if (loading) return;
+    if (!window.supabase || !window.supabase.createClient) {
+      console.warn('[Lash Store] Biblioteca Supabase indisponível; catálogo HTML preservado.');
+      return;
+    }
+    loading = true;
+    try {
+      if (!publicClient) publicClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const [productsResult, categoriesResult] = await Promise.all([
+        publicClient.from('products')
+          .select('id,name,description,price,stock,image_url,category_id,is_active,sort_order')
+          .eq('is_active', true)
+          .order('sort_order', {ascending:true})
+          .order('name', {ascending:true}),
+        publicClient.from('categories')
+          .select('id,name,is_active')
+          .eq('is_active', true)
+      ]);
+      if (productsResult.error) throw productsResult.error;
+      if (categoriesResult.error) throw categoriesResult.error;
+
+      const products = productsResult.data || [];
+      const categories = categoriesResult.data || [];
+      if (!products.length) {
+        console.warn('[Lash Store] Nenhum produto ativo retornado. Catálogo HTML preservado.');
+        return;
+      }
+
+      const categoryById = new Map(categories.map(category => [String(category.id), category.name]));
+      const cards = Array.from(document.querySelectorAll('#products .product'));
+      let updated = 0;
+
+      products.forEach((product, index) => {
+        const order = Number(product.sort_order || (index + 1));
+        const card = cards[order - 1];
+        if (!card) return;
+
+        const categoryName = categoryById.get(String(product.category_id)) || card.dataset.cat || '';
+        card.dataset.name = product.name || '';
+        card.dataset.cat = categoryName;
+
+        const title = card.querySelector('h3');
+        if (title && product.name) title.textContent = product.name;
+        const tag = card.querySelector('.tag');
+        if (tag) tag.textContent = categoryName;
+        const description = card.querySelector('.desc');
+        if (description && product.description) description.textContent = product.description;
+        const price = card.querySelector('.price');
+        if (price) price.textContent = money(product.price);
+
+        const image = card.querySelector('.photo img');
+        if (image) {
+          if (product.image_url) image.src = product.image_url;
+          image.alt = product.name || image.alt || 'Foto do produto';
+          image.setAttribute('aria-label', 'Ampliar foto: ' + (product.name || 'produto'));
+        }
+
+        const buy = card.querySelector('.buy');
+        if (buy) {
+          buy.dataset.product = product.name || '';
+          const size = card.querySelector('.size-select');
+          const suffix = size ? `, tamanho ${size.value}` : '';
+          buy.href = 'https://wa.me/5566999822091?text=' +
+            encodeURIComponent(`Olá! Tenho interesse no ${product.name || 'produto'}${suffix}.`);
+        }
+        updated++;
+      });
+
+      const activeOrders = new Set(products.map((product, index) => Number(product.sort_order || (index + 1))));
+      cards.forEach((card, index) => { card.hidden = !activeOrders.has(index + 1); });
+
+      const search = document.getElementById('search');
+      if (search) search.dispatchEvent(new Event('input', {bubbles:true}));
+      console.info(`[Lash Store] Vitrine sincronizada: ${updated} produto(s) ativo(s) do Supabase.`);
+    } catch (error) {
+      console.error('[Lash Store] Falha ao sincronizar vitrine. Catálogo HTML mantido:', error);
+    } finally {
+      loading = false;
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadPublicCatalog, {once:true});
+  } else {
+    loadPublicCatalog();
+  }
+  window.addEventListener('lash:catalog-updated', loadPublicCatalog);
+})();
+</script>
+
 </body></html>
